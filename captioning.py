@@ -27,7 +27,7 @@ def main(args):
         generated_ids = model.generate(pixel_values=pixel_values, max_length=50)
         generated_captions = processor.batch_decode(generated_ids, skip_special_tokens=True)
 
-        output_filename = os.path.join(args.path_to_caption_folder, f"{video_id}.txt")
+        output_filename = os.path.join(args.path_to_captions_folder, f"{video_id}.txt")
 
         with open(output_filename, "w") as f:
             frame_count = 0

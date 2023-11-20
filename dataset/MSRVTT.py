@@ -44,35 +44,17 @@ class MSRVTT_Captioning_Dataset(Dataset):
     
 
 class MSRVTT_Ranking_Dataset(Dataset):
-    def __init__(self, path_to_metadata, path_to_title, path_to_captions_folder):
-        self.path_to_metadata = path_to_metadata
-
-        self.path_to_title = path_to_title
-
-        self.path_to_captions_folder = path_to_captions_folder
-        self.caption_path_list = [os.path.join(self.path_to_captions_folder, x) for x in os.listdir(self.path_to_captions_folder)]
+    def __init__(self, path_to_metadata):
+        with open(path_to_metadata, "r") as f:
+            self.metadata = json.load(f)
 
 
     def __len__(self):
-        return len(self.caption_path_list)
+        return len(self.metadata["sentences"])
 
 
     def __getitem__(self, idx):
-        video_id = int(os.path.splitext(os.path.basename(self.caption_path_list[idx]))[0])
-
-        questions = []
-        with open(self.path_to_metadata, "r") as f:
-            metadata = json.load(f)
-
-            for sentence in metadata["sentences"]:
-                if sentence["video_id"] == f"video{video_id}":
-                    questions.append(sentence["caption"])
+        video_id = int(self.metadata["sentences"][idx]["video_id"][5:])
+        question = self.metadata["sentences"][idx]["caption"]
     
-        with open(self.path_to_title, "r") as f:
-            title = json.load(f)[video_id]
-
-        with open(self.caption_path_list[idx], "r") as f:
-            lines = f.readlines()
-            text = "\n".join(lines)
-
-        return video_id, questions, title, text
+        return video_id, question
