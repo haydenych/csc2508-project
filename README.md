@@ -5,7 +5,7 @@ This repository includes for the CSC2508 Project
 # Dataset
 Download the ActivityNet Captions Dataset [here](https://cs.stanford.edu/people/ranjaykrishna/densevid/). 
 
-After downloading, run the script `python3 preprocess/activitynet_captions.py --path-to-data=<PATH>` to download the videos from YouTube.
+After downloading, `cd preprocess` and run the script `python3 activitynet_captions.py --path-to-data=<PATH>` to download the videos from YouTube.
 
 # Setup
 To setup the conda environment, run `conda env create -f env.yml` and then activate the environment using `conda activate CSC2508_Project`.
@@ -13,6 +13,10 @@ To setup the conda environment, run `conda env create -f env.yml` and then activ
 Since this code is run on a linux environment, there might be problems when setting up on MacBook, in particular with the libc files.
 
 # Scripts
+
+```
+cd src/experiments
+```
 
 To generate the video captions, run
 
