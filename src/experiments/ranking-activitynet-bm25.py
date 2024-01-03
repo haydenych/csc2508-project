@@ -1,39 +1,21 @@
-import json
 import os
-import torch
 
 from args import parse_args
 from dataset.ActivityNet import ActivityNet_Ranking_Dataset
 from rank_bm25 import BM25Okapi
 from tqdm import tqdm
-from transformers import DPRReader, DPRReaderTokenizer
 
 
 def main(args):
-    # with open(args.path_to_titles, "r") as f:
-    #     titles_dict = json.load(f)
-
     caption_path_list = [os.path.join(args.path_to_ActivityNet_captions, x) for x in os.listdir(args.path_to_ActivityNet_captions)]
 
-    # assert(len(titles_dict) == len(caption_path_list))
-    # assert(set(range(len(titles_dict))) == set([int(x) for x in titles_dict]))
-
-    num_videos = len(caption_path_list)
-
-    # titles = [""] * num_videos
     corpus = []
     inverted_corpus = {}
-    # for video_id in titles_dict:
-    #     titles[int(video_id)] = titles_dict[video_id]
 
-    # Assumes documents are unique
-    # This is not the case if we split the sentences into corpus
     for caption_path in caption_path_list:
         video_id = os.path.splitext(os.path.basename(caption_path))[0]
 
         with open(caption_path, "r") as f:
-            # corpus[video_id] = titles[video_id] + "\n" + "".join(f.readlines())
-
             doc = "".join(f.readlines())
             corpus.append(doc)
             inverted_corpus[doc] = video_id

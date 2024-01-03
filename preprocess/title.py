@@ -11,25 +11,25 @@ from tqdm import tqdm
 def main(args):
     logger = Logger(args.path_to_log)
 
-    # MSRVTT
-    # with open(os.path.join(args.path_to_MSRVTT, "train_val_videodatainfo.json")) as f:
-    #     train_metadata = json.load(f)
+    MSRVTT
+    with open(os.path.join(args.path_to_MSRVTT, "train_val_videodatainfo.json")) as f:
+        train_metadata = json.load(f)
 
-    # video_titles = {}
+    video_titles = {}
 
-    # for video_info in tqdm(train_metadata["videos"]):
-    #     r = requests.get(video_info["url"])
-    #     soup = BeautifulSoup(r.text, features='lxml')
+    for video_info in tqdm(train_metadata["videos"]):
+        r = requests.get(video_info["url"])
+        soup = BeautifulSoup(r.text, features='lxml')
 
-    #     link = soup.find_all(name="title")[0]
-    #     title = str(link)
-    #     title = title.replace("<title>","")
-    #     title = title.replace("</title>","")
+        link = soup.find_all(name="title")[0]
+        title = str(link)
+        title = title.replace("<title>","")
+        title = title.replace("</title>","")
 
-    #     video_titles[video_info["id"]] = title
+        video_titles[video_info["id"]] = title
 
-    # with open(args.path_to_MSRVTT_titles, "w") as f:
-    #     json.dump(video_titles, f)
+    with open(args.path_to_MSRVTT_titles, "w") as f:
+        json.dump(video_titles, f)
 
 
     # ActivityNet
